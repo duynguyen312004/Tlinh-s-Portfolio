@@ -20,8 +20,8 @@ export default function CustomCursor() {
     };
 
     const animate = () => {
-      curX += (mouseX - curX) * 0.18;
-      curY += (mouseY - curY) * 0.18;
+      curX += (mouseX - curX) * 1;
+      curY += (mouseY - curY) * 1;
       el.style.transform = `translate(${curX - 6}px, ${curY - 6}px)`;
       animId = requestAnimationFrame(animate);
     };

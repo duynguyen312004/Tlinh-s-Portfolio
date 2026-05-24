@@ -150,7 +150,7 @@ export default function MandrakeHarvest() {
                   alt="Love You"
                   fill
                   sizes="(max-width: 768px) 82vw, 420px"
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -337,7 +337,7 @@ export default function MandrakeHarvest() {
                       alt="Love You"
                       fill
                       sizes="192px"
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                   <p className="font-cinzel text-xs uppercase tracking-[0.35em]" style={{ color: 'var(--house-accent)' }}>
