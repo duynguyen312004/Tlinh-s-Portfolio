@@ -18,7 +18,7 @@ export default function Footer() {
         {houseConfig ? ` · ${houseConfig.displayName}` : ''}
       </p>
       <p className="font-raleway text-[10px] text-[#3a2a1a] mt-1 italic">
-        "It does not do to dwell on dreams and forget to live."
+        &quot;It does not do to dwell on dreams and forget to live.&quot;
       </p>
     </footer>
   );

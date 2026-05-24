@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useHouse } from '@/context/HouseContext';
 import { HouseName, HOUSE_CONFIGS } from '@/lib/houseConfig';
@@ -49,28 +50,33 @@ export default function Navbar({ activeSection }: NavbarProps) {
       transition={{ duration: 0.8, delay: 0.2 }}
       className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(8,6,14,0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        background: scrolled || menuOpen ? 'rgba(8,6,14,0.92)' : 'rgba(8,6,14,0)',
+        backdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'blur(0px)',
+        borderBottom: scrolled || menuOpen
+          ? '1px solid color-mix(in srgb, var(--house-accent) 18%, transparent)'
+          : '1px solid transparent',
+        boxShadow: scrolled || menuOpen ? '0 10px 30px rgba(0,0,0,0.18)' : 'none',
+        opacity: scrolled ? 0.98 : 1,
       }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
         <button
           onClick={() => scrollTo('home')}
-          className="font-cinzel text-lg font-bold house-transition"
+          className="font-cinzel text-base sm:text-lg font-bold house-transition flex shrink-0 items-center gap-2"
           style={{ color: 'var(--house-accent)' }}
         >
+          <span aria-hidden="true" className="text-base">{'\u{1F996}'}</span>
           Tlinh
         </button>
 
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <li key={link.id}>
                 <button
                   onClick={() => scrollTo(link.id)}
-                  className="relative px-4 py-2 font-raleway text-sm font-medium tracking-wide transition-all duration-300 rounded-lg"
+                  className="magic-nav-link relative px-3 xl:px-4 py-2 font-raleway text-sm font-medium tracking-wide transition-all duration-300 rounded-lg"
                   style={{ color: isActive ? 'var(--house-accent)' : '#a09070' }}
                 >
                   {isActive && (
@@ -89,11 +95,11 @@ export default function Navbar({ activeSection }: NavbarProps) {
         </ul>
 
         {houseConfig && (
-          <div className="relative hidden md:block">
+          <div className="relative hidden lg:block shrink-0">
             <button
               type="button"
               onClick={() => setHouseMenuOpen((open) => !open)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-cinzel font-bold tracking-wider transition-transform duration-200 hover:scale-105"
+              className="spell-button flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-cinzel font-bold tracking-wider transition-transform duration-200 hover:scale-105"
               style={{
                 background: `${houseConfig.primary}40`,
                 color: houseConfig.accent,
@@ -103,11 +109,9 @@ export default function Navbar({ activeSection }: NavbarProps) {
               aria-haspopup="menu"
               title="Change house"
             >
-              <img src={houseConfig.crest} alt="" width={16} height={16} className="object-contain" />
+              <Image src={houseConfig.crest} alt="" width={16} height={16} className="object-contain" />
               {houseConfig.displayName}
-              <span className="text-[10px]" aria-hidden="true">
-                v
-              </span>
+              <span className="text-[10px]" aria-hidden="true">v</span>
             </button>
 
             {houseMenuOpen && (
@@ -127,14 +131,14 @@ export default function Navbar({ activeSection }: NavbarProps) {
                       key={nextHouse}
                       type="button"
                       onClick={() => changeHouse(nextHouse)}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left font-raleway text-sm transition-colors"
+                      className="spell-button flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left font-raleway text-sm transition-colors"
                       style={{
                         background: active ? `${cfg.primary}55` : 'transparent',
                         color: active ? cfg.accent : '#d9caa4',
                       }}
                       role="menuitem"
                     >
-                      <img src={cfg.crest} alt="" width={22} height={22} className="object-contain" />
+                      <Image src={cfg.crest} alt="" width={22} height={22} className="object-contain" />
                       <span className="flex-1">{cfg.displayName}</span>
                       {active && <span style={{ color: cfg.accent }}>*</span>}
                     </button>
@@ -146,9 +150,10 @@ export default function Navbar({ activeSection }: NavbarProps) {
         )}
 
         <button
-          className="md:hidden flex flex-col gap-1.5 p-1"
+          className="lg:hidden flex flex-col gap-1.5 p-2 -mr-2"
           onClick={() => setMenuOpen((m) => !m)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           {[0, 1, 2].map((i) => (
             <motion.span
@@ -173,14 +178,14 @@ export default function Navbar({ activeSection }: NavbarProps) {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden px-6 pb-4 flex flex-col gap-1"
+          className="lg:hidden px-4 sm:px-6 pb-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto"
           style={{ background: 'rgba(8,6,14,0.95)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
         >
           {NAV_LINKS.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="text-left py-2.5 px-3 font-raleway text-sm rounded-lg transition-colors"
+              className="magic-nav-link relative text-left py-2.5 px-3 font-raleway text-sm rounded-lg transition-colors"
               style={{ color: activeSection === link.id ? 'var(--house-accent)' : '#a09070' }}
             >
               {link.label}
@@ -192,7 +197,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
               <p className="px-3 pb-2 font-cinzel text-[11px] uppercase tracking-[0.28em]" style={{ color: 'var(--house-accent)' }}>
                 Change house
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
                 {(Object.keys(HOUSE_CONFIGS) as HouseName[]).map((nextHouse) => {
                   const cfg = HOUSE_CONFIGS[nextHouse];
                   const active = house === nextHouse;
@@ -202,15 +207,15 @@ export default function Navbar({ activeSection }: NavbarProps) {
                       key={nextHouse}
                       type="button"
                       onClick={() => changeHouse(nextHouse)}
-                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-left font-raleway text-xs transition-colors"
+                      className="spell-button flex min-w-0 items-center gap-2 rounded-lg px-3 py-2 text-left font-raleway text-xs transition-colors"
                       style={{
                         background: active ? `${cfg.primary}55` : 'rgba(255,255,255,0.04)',
                         color: active ? cfg.accent : '#c9b89a',
                         border: `1px solid ${active ? cfg.accent : 'rgba(255,255,255,0.08)'}`,
                       }}
                     >
-                      <img src={cfg.crest} alt="" width={20} height={20} className="object-contain" />
-                      {cfg.displayName}
+                      <Image src={cfg.crest} alt="" width={20} height={20} className="object-contain shrink-0" />
+                      <span className="truncate">{cfg.displayName}</span>
                     </button>
                   );
                 })}

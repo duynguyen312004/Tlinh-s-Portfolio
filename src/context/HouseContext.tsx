@@ -27,18 +27,28 @@ export function HouseProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('hp-house') as HouseName | null;
-    if (saved && HOUSE_CONFIGS[saved]) {
-      setHouse(saved);
-      applyHouseTheme(saved);
-    }
+    const timer = window.setTimeout(() => {
+      setMounted(true);
+      const saved = localStorage.getItem('hp-house') as HouseName | null;
+      if (saved && HOUSE_CONFIGS[saved]) {
+        setHouse(saved);
+        applyHouseTheme(saved);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   function selectHouse(h: HouseName) {
     setHouse(h);
     applyHouseTheme(h);
     localStorage.setItem('hp-house', h);
+
+    document.body.classList.remove('house-flash');
+    window.requestAnimationFrame(() => {
+      document.body.classList.add('house-flash');
+      window.setTimeout(() => document.body.classList.remove('house-flash'), 800);
+    });
   }
 
   const houseConfig = house ? HOUSE_CONFIGS[house] : null;
@@ -53,4 +63,3 @@ export function HouseProvider({ children }: { children: React.ReactNode }) {
 export function useHouse() {
   return useContext(HouseContext);
 }
-

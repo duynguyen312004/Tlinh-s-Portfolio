@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HouseName, HOUSE_CONFIGS } from '@/lib/houseConfig';
 import { useHouse } from '@/context/HouseContext';
@@ -132,7 +133,7 @@ export default function IntroScreen() {
                     onClick={startSorting}
                     whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(201, 168, 76, 0.5)' }}
                     whileTap={{ scale: 0.97 }}
-                    className="px-10 py-4 font-cinzel text-base tracking-widest uppercase rounded-full border-2 transition-all duration-300"
+                    className="spell-button px-10 py-4 font-cinzel text-base tracking-widest uppercase rounded-full border-2 transition-all duration-300"
                     style={{
                       borderColor: 'var(--house-accent)',
                       color: 'var(--house-accent)',
@@ -149,7 +150,7 @@ export default function IntroScreen() {
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                   className="mt-4"
                 >
-                  <img
+                  <Image
                     src="/assets/images/sorting-hat.png"
                     alt="Sorting Hat"
                     width={90}
@@ -174,7 +175,7 @@ export default function IntroScreen() {
                   animate={{ rotate: [-3, 3, -3] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <img
+                  <Image
                     src="/assets/images/sorting-hat.png"
                     alt="Sorting Hat"
                     width={80}
@@ -208,13 +209,13 @@ export default function IntroScreen() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: HOUSES.indexOf(house) * 0.1 + 0.2 }}
-                        className="flex flex-col items-center gap-3 p-5 rounded-2xl glass-card border-2 transition-all duration-300"
+                        className="magical-card flex flex-col items-center gap-3 p-5 rounded-2xl glass-card border-2 transition-all duration-300"
                         style={{
                           borderColor: hoveredHouse === house ? cfg.accent : 'rgba(255,255,255,0.1)',
                           boxShadow: hoveredHouse === house ? `0 0 25px ${cfg.glow}` : 'none',
                         }}
                       >
-                        <img
+                        <Image
                           src={cfg.crest}
                           alt={cfg.displayName}
                           width={72}
@@ -264,7 +265,7 @@ export default function IntroScreen() {
                   animate={{ rotate: 0, scale: 1 }}
                   transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
                 >
-                  <img
+                  <Image
                     src={chosenConfig.crest}
                     alt={chosenConfig.displayName}
                     width={120}
@@ -288,7 +289,7 @@ export default function IntroScreen() {
                     {chosenConfig.displayName}!
                   </h2>
                   <p className="text-[#a09070] font-raleway mt-4 italic text-base max-w-sm mx-auto">
-                    "{chosenConfig.motto}"
+                    &quot;{chosenConfig.motto}&quot;
                   </p>
                 </motion.div>
 
@@ -299,7 +300,7 @@ export default function IntroScreen() {
                   transition={{ delay: 0.8 }}
                   whileHover={{ scale: 1.05, boxShadow: `0 0 40px ${chosenConfig.glow}` }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-12 py-4 font-cinzel text-base font-bold tracking-widest uppercase rounded-full transition-all duration-300"
+                  className="spell-button px-12 py-4 font-cinzel text-base font-bold tracking-widest uppercase rounded-full transition-all duration-300"
                   style={{
                     background: `linear-gradient(135deg, ${chosenConfig.primary}, ${chosenConfig.muted})`,
                     color: chosenConfig.accent,

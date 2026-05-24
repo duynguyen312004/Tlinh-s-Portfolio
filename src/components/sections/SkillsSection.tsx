@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/lib/portfolioData';
 import HiddenStar from '@/components/minigame/HiddenStar';
@@ -53,7 +54,7 @@ export default function SkillsSection() {
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-[#e8dcc8]">
             Spells & Abilities
           </h2>
-          <div className="mx-auto mt-4 h-px w-24" style={{ background: 'linear-gradient(90deg, transparent, var(--house-accent), transparent)' }} />
+          <div className="section-divider" />
           <p className="text-[#7a6a4a] font-raleway text-sm mt-4">
             The enchantments mastered through study and experience
           </p>
@@ -68,7 +69,7 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: gi * 0.1 }}
-              className="glass-card p-6 rounded-2xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300"
+              className="magical-card glass-card p-6 rounded-2xl relative overflow-hidden group transition-transform duration-300"
               style={{ border: '1px solid var(--house-accent)15' }}
             >
               {/* background glow on hover */}
@@ -97,7 +98,7 @@ export default function SkillsSection() {
                       viewport={{ once: true }}
                       transition={{ delay: gi * 0.1 + si * 0.05 }}
                       whileHover={{ scale: 1.08 }}
-                      className="px-3 py-1.5 rounded-full text-xs font-raleway font-medium house-transition"
+                      className="magical-card px-3 py-1.5 rounded-full text-xs font-raleway font-medium house-transition"
                       style={{
                         background: 'var(--house-muted)',
                         color: '#c9b89a',
@@ -122,7 +123,7 @@ export default function SkillsSection() {
           className="flex justify-center gap-6 mt-12 opacity-20"
         >
           {['/assets/images/gryffindor.png', '/assets/images/ravenclaw.png', '/assets/images/hufflepuff.png', '/assets/images/slytherin.png'].map((src) => (
-            <img key={src} src={src} alt="" width={32} height={32} className="object-contain" />
+            <Image key={src} src={src} alt="" width={32} height={32} className="object-contain" />
           ))}
         </motion.div>
       </div>

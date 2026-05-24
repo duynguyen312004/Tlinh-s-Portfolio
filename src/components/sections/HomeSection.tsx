@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/lib/portfolioData';
 import HiddenStar from '@/components/minigame/HiddenStar';
@@ -83,16 +84,19 @@ export default function HomeSection() {
           className="relative"
         >
           <div
-            className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden"
+            className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden"
             style={{
               border: '3px solid var(--house-accent)',
               boxShadow: '0 0 40px var(--house-glow), 0 0 80px var(--house-glow)',
             }}
           >
-            <img
+            <Image
               src="/assets/images/linh-portrait.jpg"
               alt="Nguyễn Thảo Linh"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 128px, 160px"
+              priority
+              className="object-cover"
             />
           </div>
           <div
@@ -157,7 +161,7 @@ export default function HomeSection() {
         >
           <button
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 font-cinzel text-sm font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105"
+            className="spell-button px-8 py-3 font-cinzel text-sm font-bold tracking-widest uppercase rounded-full transition-all duration-300 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, var(--house-primary), var(--house-muted))',
               color: 'var(--house-accent)',
@@ -169,7 +173,7 @@ export default function HomeSection() {
           </button>
           <button
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 font-raleway text-sm tracking-wide rounded-full transition-all duration-300 hover:scale-105"
+            className="spell-button px-8 py-3 font-raleway text-sm tracking-wide rounded-full transition-all duration-300 hover:scale-105"
             style={{
               color: 'var(--house-accent)',
               border: '1px solid var(--house-accent)50',
@@ -190,7 +194,7 @@ export default function HomeSection() {
           {portfolioData.personal.characteristics.map((c) => (
             <span
               key={c}
-              className="px-3 py-1 rounded-full text-xs font-raleway font-medium glass-card"
+              className="magical-card px-3 py-1 rounded-full text-xs font-raleway font-medium glass-card"
               style={{ color: 'var(--house-accent)', border: '1px solid var(--house-accent)30' }}
             >
               {c}

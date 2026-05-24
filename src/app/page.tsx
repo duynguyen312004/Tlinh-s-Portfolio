@@ -26,7 +26,6 @@ const SECTIONS = ['home', 'about', 'skills', 'experience', 'projects', 'contact'
 export default function HomePage() {
   const { isEntered, mounted } = useHouse();
   const [activeSection, setActiveSection] = useState('home');
-  const [audioAutoPlay, setAudioAutoPlay] = useState(false);
 
   // Detect active section via IntersectionObserver
   useEffect(() => {
@@ -48,11 +47,6 @@ export default function HomePage() {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, [isEntered]);
-
-  // Sync autoPlay from audio started in IntroScreen
-  useEffect(() => {
-    if (isEntered) setAudioAutoPlay(true);
   }, [isEntered]);
 
   // Don't render anything until client is mounted (avoids hydration mismatch)
@@ -87,7 +81,7 @@ export default function HomePage() {
             <Navbar activeSection={activeSection} />
             <StarCollector />
             <FloatingCharacter currentSection={activeSection} />
-            <AudioPlayer src="/assets/audio/hedwigs-theme.mp3" autoPlay={audioAutoPlay} />
+            <AudioPlayer src="/assets/audio/hedwigs-theme.mp3" autoPlay={isEntered} />
 
             <main className="relative z-10">
               <HomeSection />

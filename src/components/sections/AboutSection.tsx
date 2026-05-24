@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/lib/portfolioData';
 import HiddenStar from '@/components/minigame/HiddenStar';
@@ -36,7 +37,7 @@ export default function AboutSection() {
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-[#e8dcc8]">
             About the Witch
           </h2>
-          <div className="mx-auto mt-4 h-px w-24" style={{ background: 'linear-gradient(90deg, transparent, var(--house-accent), transparent)' }} />
+          <div className="section-divider" />
         </motion.div>
 
         <div className="grid md:grid-cols-5 gap-10 items-start">
@@ -49,13 +50,15 @@ export default function AboutSection() {
             className="md:col-span-2 flex flex-col items-center gap-5"
           >
             <div
-              className="relative w-52 h-64 md:w-60 md:h-72 rounded-2xl overflow-hidden"
+              className="magical-card relative w-52 h-64 md:w-60 md:h-72 rounded-2xl overflow-hidden"
               style={{ border: '2px solid var(--house-accent)60', boxShadow: '0 0 40px var(--house-glow)' }}
             >
-              <img
+              <Image
                 src="/assets/images/linh-portrait.jpg"
                 alt="Nguyễn Thảo Linh"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 208px, 240px"
+                className="object-cover"
               />
               <div
                 className="absolute inset-0"
@@ -76,7 +79,7 @@ export default function AboutSection() {
               ].map(({ label, value }) => (
                 <div
                   key={label}
-                  className="glass-card p-3 rounded-xl text-center"
+                  className="magical-card glass-card p-3 rounded-xl text-center"
                   style={{ border: '1px solid var(--house-accent)20' }}
                 >
                   <p className="text-xs text-[#6a5a4a] font-raleway uppercase tracking-wider">{label}</p>
@@ -100,7 +103,7 @@ export default function AboutSection() {
                 <button
                   key={t.id}
                   onClick={() => setTab(t.id)}
-                  className="px-4 py-2 rounded-lg text-xs font-cinzel font-bold tracking-wide transition-all duration-300"
+                  className="spell-button px-4 py-2 rounded-lg text-xs font-cinzel font-bold tracking-wide transition-all duration-300"
                   style={
                     tab === t.id
                       ? { background: 'var(--house-muted)', color: 'var(--house-accent)', border: '1px solid var(--house-accent)50' }
@@ -119,7 +122,7 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card p-6 rounded-2xl"
+                className="magical-card glass-card p-6 rounded-2xl"
                 style={{ border: '1px solid var(--house-accent)15' }}
               >
                 <p className="font-raleway text-[#c9b89a] text-sm leading-7">
@@ -129,7 +132,7 @@ export default function AboutSection() {
                   {personal.careerOrientations.map((o) => (
                     <span
                       key={o}
-                      className="px-3 py-1 rounded-full text-xs font-raleway font-medium"
+                      className="magical-card px-3 py-1 rounded-full text-xs font-raleway font-medium"
                       style={{
                         background: 'var(--house-muted)',
                         color: 'var(--house-accent)',
@@ -150,7 +153,7 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card p-6 rounded-2xl space-y-4"
+                className="magical-card glass-card p-6 rounded-2xl space-y-4"
                 style={{ border: '1px solid var(--house-accent)15' }}
               >
                 <div>
@@ -182,7 +185,7 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="glass-card p-6 rounded-2xl space-y-3"
+                className="magical-card glass-card p-6 rounded-2xl space-y-3"
                 style={{ border: '1px solid var(--house-accent)15' }}
               >
                 {education.achievements.map((a, i) => (

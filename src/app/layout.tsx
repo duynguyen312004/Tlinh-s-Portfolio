@@ -19,13 +19,16 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "Thảo Linh's Magical Portfolio | Business Analyst",
+  title: "Tlinh's World",
   description:
-    'Portfolio of Nguyễn Thảo Linh – Third-year International Economics student at Foreign Trade University, aspiring Business Analyst with expertise in market research and business development.',
-  keywords: ['Portfolio', 'Business Analyst', 'International Economics', 'Foreign Trade University', 'Nguyễn Thảo Linh'],
-  authors: [{ name: 'Nguyễn Thảo Linh' }],
+    'Portfolio of Nguyen Thao Linh - Third-year International Economics student at Foreign Trade University, aspiring Business Analyst with expertise in market research and business development.',
+  keywords: ['Portfolio', 'Business Analyst', 'International Economics', 'Foreign Trade University', 'Nguyen Thao Linh'],
+  authors: [{ name: 'Nguyen Thao Linh' }],
+  icons: {
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦦%3C/text%3E%3C/svg%3E",
+  },
   openGraph: {
-    title: "Thảo Linh's Magical Portfolio",
+    title: "Tlinh's World",
     description: 'Aspiring Business Analyst | FTU Student | Harry Potter Theme',
     type: 'website',
   },

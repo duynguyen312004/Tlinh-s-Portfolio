@@ -26,7 +26,7 @@ export default function ExperienceSection() {
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-[#e8dcc8]">
             Magical Journey
           </h2>
-          <div className="mx-auto mt-4 h-px w-24" style={{ background: 'linear-gradient(90deg, transparent, var(--house-accent), transparent)' }} />
+          <div className="section-divider" />
           <p className="text-[#7a6a4a] font-raleway text-sm mt-4">
             Experiences that shaped the witch behind the portfolio
           </p>
@@ -62,7 +62,7 @@ export default function ExperienceSection() {
                   {/* Card */}
                   <div className={`ml-14 md:ml-0 ${isLeft ? 'md:mr-8 md:w-[45%]' : 'md:ml-8 md:w-[45%]'}`}>
                     <div
-                      className="glass-card p-5 rounded-2xl group hover:scale-[1.02] transition-transform duration-300"
+                      className="magical-card glass-card p-5 rounded-2xl group transition-transform duration-300"
                       style={{ border: '1px solid var(--house-accent)15' }}
                     >
                       {/* Role */}
@@ -92,7 +92,7 @@ export default function ExperienceSection() {
 
                       {exp.results && (
                         <div
-                          className="mt-3 p-2.5 rounded-lg text-[10px] font-raleway text-[#a09070] italic leading-relaxed"
+                          className="magical-card mt-3 p-2.5 rounded-lg text-[10px] font-raleway text-[#a09070] italic leading-relaxed"
                           style={{ background: 'var(--house-muted)', border: '1px solid var(--house-accent)20' }}
                         >
                           ✦ {exp.results}
@@ -104,7 +104,7 @@ export default function ExperienceSection() {
                         {exp.skillsDemonstrated.map((s) => (
                           <span
                             key={s}
-                            className="px-2 py-0.5 rounded-full text-[10px] font-raleway"
+                            className="magical-card px-2 py-0.5 rounded-full text-[10px] font-raleway"
                             style={{
                               background: 'var(--house-muted)',
                               color: 'var(--house-accent)',

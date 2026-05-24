@@ -22,7 +22,7 @@ export default function ProjectsSection() {
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-[#e8dcc8]">
             Enchanted Works
           </h2>
-          <div className="mx-auto mt-4 h-px w-24" style={{ background: 'linear-gradient(90deg, transparent, var(--house-accent), transparent)' }} />
+          <div className="section-divider" />
           <p className="text-[#7a6a4a] font-raleway text-sm mt-4">
             Spells cast in the real world
           </p>
@@ -40,7 +40,7 @@ export default function ProjectsSection() {
               viewport={{ once: true, margin: '-30px' }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ y: -6, scale: 1.01 }}
-              className="glass-card p-6 rounded-2xl flex flex-col gap-4 group relative overflow-hidden"
+              className="magical-card glass-card p-6 rounded-2xl flex flex-col gap-4 group relative overflow-hidden"
               style={{ border: '1px solid var(--house-accent)15' }}
             >
               {/* Hover glow */}
@@ -54,7 +54,7 @@ export default function ProjectsSection() {
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-3xl">{project.icon}</span>
                   <span
-                    className="px-2.5 py-1 rounded-full text-[10px] font-cinzel font-bold tracking-wider"
+                    className="magical-card px-2.5 py-1 rounded-full text-[10px] font-cinzel font-bold tracking-wider"
                     style={{
                       background: 'var(--house-muted)',
                       color: 'var(--house-accent)',
@@ -80,7 +80,7 @@ export default function ProjectsSection() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2.5 py-0.5 rounded-full text-[10px] font-raleway"
+                      className="magical-card px-2.5 py-0.5 rounded-full text-[10px] font-raleway"
                       style={{
                         background: 'rgba(255,255,255,0.04)',
                         color: '#7a6a4a',

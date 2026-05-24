@@ -1,33 +1,47 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const SECTIONS = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
-
 const DIALOGUES: Record<string, string[]> = {
-  home:       ["Alohomora! Your journey begins here ✨", "Lumos! Let there be light 🪄"],
-  about:      ["Ah, learning about the witch behind the portfolio! 📖", "Every great witch has a fascinating story 🦉"],
-  skills:     ["Quite the arsenal of spells! 🔮", "These skills would impress even Professor McGonagall 😊"],
-  experience: ["Every challenge is practice for the real thing 🏆", "Experience is the greatest teacher of all 📜"],
-  projects:   ["Brilliant work! Truly magical projects ✦", "Even Hermione would be impressed! 🌟"],
-  contact:    ["Don't be a stranger! Send an owl... or an email 📨", "The wizarding world awaits your message! 💌"],
+  home: ['Lumos. Welcome in.', 'A little magic, a lot of focus.'],
+  about: ['A good story starts with curiosity.', 'Now this is where the character arc begins.'],
+  skills: ['A neat set of spells.', 'These tools are ready for the next challenge.'],
+  experience: ['Every chapter adds proof.', 'Practice turns effort into confidence.'],
+  projects: ['This shelf has some strong work.', 'The best projects always leave a trace.'],
+  contact: ['Time to send a note.', 'The next collaboration can start here.'],
+};
+
+const SECTION_MOTION: Record<string, { x: number; y: number; scale: number }> = {
+  home: { x: 0, y: 0, scale: 1 },
+  about: { x: -12, y: -18, scale: 0.98 },
+  skills: { x: -28, y: -4, scale: 1.02 },
+  experience: { x: -8, y: -34, scale: 0.96 },
+  projects: { x: -34, y: -20, scale: 1.03 },
+  contact: { x: 0, y: -10, scale: 1 },
 };
 
 export default function FloatingCharacter({ currentSection }: { currentSection: string }) {
   const [dialogueIndex, setDialogueIndex] = useState(0);
   const [showDialogue, setShowDialogue] = useState(true);
-  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
-    setDialogueIndex(0);
-    setShowDialogue(true);
-    const timer = setTimeout(() => setShowDialogue(false), 5000);
-    return () => clearTimeout(timer);
+    const showTimer = window.setTimeout(() => {
+      setDialogueIndex(0);
+      setShowDialogue(true);
+    }, 0);
+    const hideTimer = window.setTimeout(() => setShowDialogue(false), 5200);
+
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
   }, [currentSection]);
 
-  const dialogues = DIALOGUES[currentSection] || DIALOGUES['home'];
+  const dialogues = DIALOGUES[currentSection] || DIALOGUES.home;
   const currentDialogue = dialogues[dialogueIndex % dialogues.length];
+  const sectionMotion = SECTION_MOTION[currentSection] || SECTION_MOTION.home;
 
   const nextDialogue = () => {
     setDialogueIndex((i) => (i + 1) % dialogues.length);
@@ -35,21 +49,23 @@ export default function FloatingCharacter({ currentSection }: { currentSection: 
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-      {/* Speech bubble */}
+    <motion.div
+      animate={sectionMotion}
+      transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+      className="fixed bottom-6 right-6 z-50 hidden sm:flex flex-col items-end gap-2"
+    >
       <AnimatePresence>
-        {showDialogue && !isMinimized && (
+        {showDialogue && (
           <motion.div
             key={currentDialogue}
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            initial={{ opacity: 0, scale: 0.88, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-[200px] text-sm font-raleway px-4 py-3 rounded-2xl rounded-br-sm glass-card glow-border text-[#e8dcc8] leading-relaxed relative"
+            exit={{ opacity: 0, scale: 0.88, y: 10 }}
+            transition={{ duration: 0.24 }}
+            className="max-w-[210px] text-sm font-raleway px-4 py-3 rounded-2xl rounded-br-sm glass-card glow-border text-[#e8dcc8] leading-relaxed relative"
             style={{ fontSize: '12px' }}
           >
             {currentDialogue}
-            {/* bubble tail */}
             <div
               className="absolute -bottom-2 right-4 w-0 h-0"
               style={{
@@ -62,27 +78,19 @@ export default function FloatingCharacter({ currentSection }: { currentSection: 
         )}
       </AnimatePresence>
 
-      {/* Character */}
       <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ y: [0, -8, 0], rotate: [-1, 1, -1] }}
+        transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
         className="relative"
       >
         <button
-          onClick={() => {
-            if (isMinimized) {
-              setIsMinimized(false);
-              setShowDialogue(true);
-            } else {
-              nextDialogue();
-            }
-          }}
-          onDoubleClick={() => setIsMinimized((m) => !m)}
-          title="Click for dialogue · Double-click to minimize"
-          className="block w-16 h-16 rounded-full overflow-hidden glow-border hover:scale-110 transition-transform duration-300"
+          onClick={nextDialogue}
+          title="Click for another note"
+          aria-label="Show another note"
+          className="magical-card block w-16 h-16 rounded-full overflow-hidden glow-border transition-transform duration-300"
           style={{ boxShadow: '0 0 20px var(--house-glow)' }}
         >
-          <img
+          <Image
             src="/assets/images/hermione-face.png"
             alt="Hermione"
             width={64}
@@ -91,16 +99,11 @@ export default function FloatingCharacter({ currentSection }: { currentSection: 
           />
         </button>
 
-        {/* Section indicator dot */}
         <div
           className="absolute -top-1 -right-1 w-3 h-3 rounded-full pulse-glow"
           style={{ background: 'var(--house-accent)' }}
         />
       </motion.div>
-
-      {isMinimized && (
-        <p className="text-[10px] text-[#5a4a3a] font-raleway">double-click to show</p>
-      )}
-    </div>
+    </motion.div>
   );
 }

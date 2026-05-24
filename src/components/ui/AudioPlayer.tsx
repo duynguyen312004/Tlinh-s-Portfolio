@@ -50,10 +50,10 @@ export default function AudioPlayer({ src, autoPlay = false }: AudioPlayerProps)
       onClick={toggleMute}
       title={muted ? 'Turn music on' : 'Mute music'}
       aria-label={muted ? 'Turn music on' : 'Mute music'}
-      className="fixed bottom-6 left-6 z-50 w-11 h-11 flex items-center justify-center rounded-full glass-card glow-border text-[11px] font-cinzel font-bold tracking-wider hover:scale-110 transition-transform duration-200"
+      className="fixed bottom-6 left-6 z-50 w-11 h-11 flex items-center justify-center rounded-full glass-card glow-border text-lg hover:scale-110 transition-transform duration-200"
       style={{ color: 'var(--house-accent)' }}
     >
-      {muted ? 'OFF' : 'ON'}
+      {muted ? '🔇' : '🔊'}
     </button>
   );
 }

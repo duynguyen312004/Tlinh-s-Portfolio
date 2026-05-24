@@ -8,6 +8,7 @@
   --house-name:    "Gryffindor";
   --house-muted:   #3d1a1a;
   --house-glow:    rgba(211, 166, 37, 0.3);
+  --star-scroll:    0px;
 }
 
 /* ── Tailwind v4 Theme ──────────────────────────── */
@@ -43,6 +44,8 @@ body {
   cursor: none;
   overflow-x: hidden;
   transition: background-color 0.8s ease;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* ── Custom Scrollbar ───────────────────────────── */
@@ -61,6 +64,8 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  transform: translate3d(0, var(--star-scroll), 0);
+  will-change: transform;
 }
 
 .star {
@@ -70,6 +75,21 @@ body {
   background: white;
   border-radius: 50%;
   animation: twinkle var(--duration, 3s) var(--delay, 0s) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.star-far {
+  opacity: 0.45;
+  filter: blur(0.2px);
+}
+
+.star-mid {
+  box-shadow: 0 0 6px rgba(255,255,255,0.55);
+}
+
+.star-near {
+  box-shadow: 0 0 10px var(--house-glow);
+  background: #fff5d7;
 }
 
 /* ── Keyframes ──────────────────────────────────── */
@@ -131,6 +151,31 @@ body {
   75%       { transform: rotate(5deg); }
 }
 
+@keyframes auraFlash {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  35% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes spellSweep {
+  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  35% { opacity: 0.65; }
+  100% { transform: translateX(180%) skewX(-18deg); opacity: 0; }
+}
+
+@keyframes spellUnderline {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
 /* ── Shimmer Text ───────────────────────────────── */
 .shimmer-text {
   background: linear-gradient(
@@ -164,11 +209,131 @@ body {
   border-radius: 16px;
 }
 
+.magical-card {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background-color 260ms ease;
+  will-change: transform;
+}
+
+.magical-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.06) 45%, transparent 68%),
+    radial-gradient(circle at 20% 0%, var(--house-glow), transparent 45%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.magical-card:hover {
+  transform: translate3d(0, -5px, 0);
+  border-color: color-mix(in srgb, var(--house-accent) 45%, transparent);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.24), 0 0 22px var(--house-glow);
+}
+
+.magical-card:hover::before {
+  opacity: 1;
+}
+
+.spell-button {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.spell-button::after {
+  content: "";
+  position: absolute;
+  inset: -30% auto -30% 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+
+.spell-button:hover::after {
+  animation: spellSweep 900ms ease;
+}
+
+.magic-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 5px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--house-accent), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+}
+
+.magic-nav-link:hover::after {
+  animation: spellUnderline 220ms ease forwards;
+}
+
+.section-divider {
+  position: relative;
+  height: 1px;
+  width: min(9rem, 38vw);
+  margin: 1rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--house-accent), transparent);
+  box-shadow: 0 0 14px var(--house-glow);
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--house-accent);
+  box-shadow: 0 0 10px var(--house-accent);
+  transform: translateY(-50%);
+}
+
+.section-divider::before { left: 30%; }
+.section-divider::after { right: 30%; }
+
+body.house-flash::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 44%, var(--house-glow), transparent 35%),
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--house-accent) 34%, transparent), transparent);
+  transform-origin: center;
+  animation: auraFlash 760ms ease-out;
+}
+
 /* ── Section Base ───────────────────────────────── */
 .section-base {
   position: relative;
   z-index: 10;
   padding: 6rem 1.5rem;
+}
+
+.section-base::after {
+  content: "";
+  position: absolute;
+  left: max(1.5rem, calc((100vw - 72rem) / 2));
+  right: max(1.5rem, calc((100vw - 72rem) / 2));
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--house-accent) 22%, transparent), transparent);
+  opacity: 0.65;
 }
 
 /* ── Cursor hidden for all elements ────────────── */
@@ -188,4 +353,21 @@ a, button, [role="button"] { cursor: none !important; }
 /* ── House transition ───────────────────────────── */
 .house-transition {
   transition: color 0.6s ease, background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+  .starfield {
+    transform: none;
+  }
+
+  .magical-card,
+  .magical-card:hover {
+    transform: none;
+  }
+
+  .spell-button:hover::after,
+  .magic-nav-link:hover::after,
+  body.house-flash::before {
+    animation: none;
+  }
 }

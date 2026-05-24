@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 export default function CustomCursor() {
   const wandRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,7 @@ export default function CustomCursor() {
       className="fixed top-0 left-0 z-[9999] pointer-events-none select-none"
       style={{ willChange: 'transform' }}
     >
-      <img
+      <Image
         src="/assets/images/hermione-wand.png"
         alt="wand cursor"
         width={28}
