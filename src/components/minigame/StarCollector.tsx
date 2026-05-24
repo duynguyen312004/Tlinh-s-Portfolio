@@ -16,7 +16,7 @@ export default function StarCollector() {
   };
 
   return (
-    <div className="fixed right-3 top-16 z-30 flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-2 sm:right-4 sm:top-20 lg:top-20">
+    <div className="fixed right-3 top-16 z-20 flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-2 sm:right-4 sm:top-20 lg:right-6 lg:top-24">
       <motion.div
         className="flex items-center gap-2 rounded-full glass-card px-2.5 py-1.5 sm:px-3"
         style={{ border: '1px solid var(--house-accent)40' }}
@@ -42,9 +42,24 @@ export default function StarCollector() {
       </motion.div>
 
       {!isUnlocked && (
-        <p className="hidden text-right font-raleway text-[10px] text-[#5a4a3a] sm:block">
-          Find {totalStars - collectedCount} more star{totalStars - collectedCount !== 1 ? 's' : ''} to unlock CV
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="hidden max-w-[290px] items-center gap-2 rounded-full glass-card px-3 py-1.5 text-right sm:flex"
+          style={{
+            border: '1px solid var(--house-accent)30',
+            boxShadow: '0 0 18px var(--house-glow)',
+          }}
+        >
+          <span className="text-[11px]" style={{ color: 'var(--house-accent)' }}>✦</span>
+          <p className="font-raleway text-xs font-semibold leading-snug text-[#c9b89a]">
+            Find{' '}
+            <span className="font-cinzel text-sm font-bold" style={{ color: 'var(--house-accent)' }}>
+              {totalStars - collectedCount}
+            </span>{' '}
+            more star{totalStars - collectedCount !== 1 ? 's' : ''} to unlock CV
+          </p>
+        </motion.div>
       )}
 
       <AnimatePresence>

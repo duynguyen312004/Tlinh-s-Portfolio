@@ -44,7 +44,7 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="section-base min-h-screen flex flex-col items-center justify-center text-center relative"
+      className="section-base home-section min-h-[100svh] flex flex-col items-center justify-center text-center relative"
     >
       <HiddenStar id="star-home" className="top-32 left-[15%]" />
 
@@ -74,7 +74,7 @@ export default function HomeSection() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
-        className="relative z-10 flex flex-col items-center gap-6 max-w-3xl"
+        className="relative z-10 flex w-full max-w-3xl flex-col items-center gap-5 md:gap-6"
       >
         {/* Avatar */}
         <motion.div
@@ -116,7 +116,7 @@ export default function HomeSection() {
           <p className="text-[var(--house-accent)] text-xs tracking-[0.5em] uppercase font-cinzel mb-3">
             Portfolio · Wizarding Edition
           </p>
-          <h1 className="text-5xl md:text-7xl font-cinzel font-bold shimmer-text leading-tight">
+          <h1 className="text-5xl md:text-7xl font-cinzel font-bold shimmer-text leading-[1.08] tracking-normal">
             Thảo Linh
           </h1>
           <p className="text-[#c9b89a] font-raleway text-base md:text-lg mt-2">

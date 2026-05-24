@@ -105,7 +105,7 @@ export default function IntroScreen() {
                     Welcome to the Wizarding World
                   </p>
                   <h1
-                    className="text-5xl md:text-7xl font-cinzel font-bold mb-2"
+                    className="text-5xl md:text-7xl font-cinzel font-bold mb-2 leading-[1.08] tracking-normal"
                     style={{
                       background: 'linear-gradient(135deg, #c9a84c 0%, #fff5d7 50%, #c9a84c 100%)',
                       WebkitBackgroundClip: 'text',

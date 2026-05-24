@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
-import { Cinzel, Raleway } from 'next/font/google';
+import { Be_Vietnam_Pro, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { HouseProvider } from '@/context/HouseContext';
 import { StarProvider } from '@/context/StarContext';
 
-const cinzel = Cinzel({
-  subsets: ['latin'],
+const displayFont = Playfair_Display({
+  subsets: ['latin', 'vietnamese'],
   variable: '--font-cinzel',
-  weight: ['400', '600', '700', '900'],
+  weight: ['400', '600', '700', '800', '900'],
   display: 'swap',
 });
 
-const raleway = Raleway({
-  subsets: ['latin'],
+const bodyFont = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
   variable: '--font-raleway',
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${raleway.variable}`}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body suppressHydrationWarning>
         <HouseProvider>
           <StarProvider>
