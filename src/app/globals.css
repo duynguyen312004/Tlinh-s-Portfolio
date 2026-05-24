@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* ── House Theme CSS Variables ─────────────────── */
+:root {
+  --house-primary: #740001;
+  --house-accent:  #D3A625;
+  --house-bg:      #0d0505;
+  --house-name:    "Gryffindor";
+  --house-muted:   #3d1a1a;
+  --house-glow:    rgba(211, 166, 37, 0.3);
+}
+
+/* ── Tailwind v4 Theme ──────────────────────────── */
+@theme inline {
+  --color-house-primary: var(--house-primary);
+  --color-house-accent:  var(--house-accent);
+  --color-house-bg:      var(--house-bg);
+  --color-house-muted:   var(--house-muted);
+  --color-dark:          #08060e;
+
+  --font-cinzel:  "Cinzel", serif;
+  --font-raleway: "Raleway", sans-serif;
+
+  --animate-float:    float 4s ease-in-out infinite;
+  --animate-sparkle:  sparkle 0.6s ease-out forwards;
+  --animate-twinkle:  twinkle 3s ease-in-out infinite;
+  --animate-shimmer:  shimmer 2s linear infinite;
+  --animate-fadeIn:   fadeIn 0.5s ease-out forwards;
+}
+
+/* ── Base Reset ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: none;
+}
+
+body {
+  background-color: var(--house-bg);
+  color: #e8dcc8;
+  font-family: "Raleway", sans-serif;
+  cursor: none;
+  overflow-x: hidden;
+  transition: background-color 0.8s ease;
+}
+
+/* ── Custom Scrollbar ───────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--house-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--house-accent);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--house-primary); }
+
+/* ── Starfield Background ───────────────────────── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration, 3s) var(--delay, 0s) ease-in-out infinite;
+}
+
+/* ── Keyframes ──────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50%       { transform: translateY(-16px) rotate(2deg); }
+}
+
+@keyframes sparkle {
+  0%   { transform: translate(0, 0) scale(1);   opacity: 1; }
+  100% { transform: translate(var(--tx, 20px), var(--ty, -40px)) scale(0); opacity: 0; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.5); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px var(--house-glow); }
+  50%       { box-shadow: 0 0 30px var(--house-glow), 0 0 60px var(--house-glow); }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  25%       { transform: translate(20px, -15px); }
+  50%       { transform: translate(-10px, -25px); }
+  75%       { transform: translate(-20px, -10px); }
+}
+
+@keyframes introReveal {
+  from { clip-path: circle(0% at 50% 50%); opacity: 0; }
+  to   { clip-path: circle(150% at 50% 50%); opacity: 1; }
+}
+
+@keyframes sortingHatShake {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-5deg); }
+  75%       { transform: rotate(5deg); }
+}
+
+/* ── Shimmer Text ───────────────────────────────── */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--house-accent) 0%,
+    #fff8e7 40%,
+    var(--house-accent) 60%,
+    var(--house-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── Glow Utilities ─────────────────────────────── */
+.glow-border {
+  border: 1px solid var(--house-accent);
+  box-shadow: 0 0 12px var(--house-glow), inset 0 0 12px rgba(0,0,0,0.5);
+}
+
+.pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+
+/* ── Glassmorphism Card ─────────────────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* ── Section Base ───────────────────────────────── */
+.section-base {
+  position: relative;
+  z-index: 10;
+  padding: 6rem 1.5rem;
+}
+
+/* ── Cursor hidden for all elements ────────────── */
+a, button, [role="button"] { cursor: none !important; }
+
+/* ── Typing cursor blink ────────────────────────── */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 0.8s step-end infinite;
+  color: var(--house-accent);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── House transition ───────────────────────────── */
+.house-transition {
+  transition: color 0.6s ease, background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+}
