@@ -7,23 +7,23 @@ export default function StarCollector() {
   const { collectedCount, totalStars, isUnlocked } = useStar();
 
   const handleDownload = () => {
-    // Placeholder: replace with actual CV link when available
     const link = document.createElement('a');
-    link.href = '#';
+    link.href = '/CV.pdf';
     link.download = 'NguyenThaoLinh_CV.pdf';
-    alert('✨ CV download coming soon! This is a placeholder. ✨');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   return (
     <div className="fixed top-4 right-4 z-50 flex flex-col items-end gap-2">
-      {/* Star counter */}
       <motion.div
         className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-card"
         style={{ border: '1px solid var(--house-accent)40' }}
         animate={isUnlocked ? { boxShadow: ['0 0 10px var(--house-glow)', '0 0 30px var(--house-glow)', '0 0 10px var(--house-glow)'] } : {}}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        <span className="text-sm">⭐</span>
+        <span className="text-sm">★</span>
         <span className="font-cinzel text-xs font-bold" style={{ color: 'var(--house-accent)' }}>
           {collectedCount} / {totalStars}
         </span>
@@ -41,14 +41,12 @@ export default function StarCollector() {
         </div>
       </motion.div>
 
-      {/* Unlock hint */}
       {!isUnlocked && (
         <p className="text-[10px] text-[#5a4a3a] font-raleway text-right pr-1">
-          Find {totalStars - collectedCount} more star{totalStars - collectedCount !== 1 ? 's' : ''} to unlock CV ✨
+          Find {totalStars - collectedCount} more star{totalStars - collectedCount !== 1 ? 's' : ''} to unlock CV
         </p>
       )}
 
-      {/* Download CV button */}
       <AnimatePresence>
         {isUnlocked && (
           <motion.button
@@ -66,7 +64,7 @@ export default function StarCollector() {
               border: '1px solid var(--house-accent)',
             }}
           >
-            ✦ Download CV ✦
+            Download CV
           </motion.button>
         )}
       </AnimatePresence>
