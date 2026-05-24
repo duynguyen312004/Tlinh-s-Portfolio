@@ -13,6 +13,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import FloatingCharacter from '@/components/floating/FloatingCharacter';
 import StarCollector from '@/components/minigame/StarCollector';
+import MandrakeHarvest from '@/components/minigame/MandrakeHarvest';
 
 import HomeSection from '@/components/sections/HomeSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -90,6 +91,7 @@ export default function HomePage() {
               <ExperienceSection />
               <ProjectsSection />
               <ContactSection />
+              <MandrakeHarvest />
             </main>
 
             <Footer />
